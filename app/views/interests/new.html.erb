@@ -1,0 +1,11 @@
+<h1>Create Interest</h1>
+
+<p class="notice"><%= flash[:notice] %></p>
+<p class="error"><%= flash[:error] %></p>
+
+<div class="left">
+<%= simple_form_for(@interest) do |f| %>
+	<%= f.input :name, label: "Interest Name" %>
+	<%= f.button :submit, :id => 'cre_interest_btn', :class => 'btn btn-large btn-success' %>
+<% end %>
+</div>

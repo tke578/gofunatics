@@ -1,0 +1,3 @@
+$('#header').prepend('<div class="interest"><img alt="<%= @int.id %>" class="circle" src="/assets/<%= @int.id %>.jpg" /><p><a class="interest" href="/interests/<%= @int.id %>"><%= @int.name %></a><a class="favorite_remove" data-method="delete" href="/interests/<%= @int.id %>" rel="nofollow">remove</a></p></div>');
+
+// $('#header').prepend('<div class="interest favint" ><img alt="<%= @int.id %>" class="circle" src="/assets/<%= @int.id %>.jpg" /><p><a class="interest" href="/interests/<%= @int.id %>"><%= @int.name %></a><%= link_to "remove", interest_path( :interest_id => interest.id), method: :delete, :remote => true, class: "favorite_remove" %></p></p></div>');

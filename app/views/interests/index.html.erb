@@ -1,0 +1,57 @@
+
+<div id="interest_carousel" class="carousel slide">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#interest_carousel" data-slide-to="0" class="active"></li>
+    <li data-target="#interest_carousel" data-slide-to="1"></li>
+    <li data-target="#interest_carousel" data-slide-to="2"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+    <div class="item active">
+      <img src="/assets/skydive.png" alt="skydiving">
+      <div class="carousel-caption">
+        <h1>Find Events</h1>
+        <p>Skydiving - Want to feel the rushing wind in your face?</p>
+        <p><a href="/signup/" class="btn btn-warning btn-lg">Sign up today &raquo;</a></p>
+      </div>
+    </div>
+    <div class="item">
+      <img src="assets/hike.png" alt="hiking">
+      <div class="carousel-caption">
+        <h1>Make Friends</h1>
+        <p>Hiking - Climb to the top with a buddy.</p>
+        <p><a href="/signup/" class="btn btn-warning btn-lg">Sign up today &raquo;</a></p>
+      </div>
+    </div>
+    <div class="item">
+      <img src="assets/bike.png" alt="bike">
+      <div class="carousel-caption">
+        <h1>Have Fun!</h1>
+        <p>Bicycling - Reach the limits.</p>
+        <p><a href="/signup/" class="btn btn-warning btn-lg">Sign up today &raquo;</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#interest_carousel" data-slide="prev">
+    <span class="icon-prev"></span>
+  </a>
+  <a class="right carousel-control" href="#interest_carousel" data-slide="next">
+    <span class="icon-next"></span>
+  </a>
+</div><!--end of carousel-->
+
+
+<% @interests.each do |interest| %>
+  <div class="interest">
+    <%= link_to(image_tag("#{interest.id}.jpg", class: 'circle'), interest_path(interest.id)) %>
+    <p><%= link_to interest.name, interest_path(interest.id), class: 'interest_title' %>
+    <%= link_to 'favorite', interests_path( :interest_id => interest.id), method: :post, class: 'favorite_add' %></p>
+  </div>
+<% end %>
+
+
+

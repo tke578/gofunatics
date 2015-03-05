@@ -1,0 +1,151 @@
+#header {
+	border: 1px solid silver;
+	width: 1100px;
+	height: 300px;
+	overflow-y: scroll;
+	padding: 5px;
+	margin-top: 0px;
+	border-radius:15px;
+}
+
+#search_label {
+	display: inline;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.interest {
+	float: left;
+	text-align: center;
+	line-height: 0.3;
+	margin: 10px 5px 0px 0px;
+}
+
+	.interest_title {
+		font-size: 22px;		
+	}
+
+	.circle {
+		border-radius: 50%;
+		margin: 2px;
+		width: 200px;
+		height: 200px;
+		border: 1px solid silver;
+	}
+
+	.interest  p {
+		margin: 4px;
+		padding: 0px;
+	}
+	
+	#no_favorite, #no_interest {
+		color: gray;
+		text-align: center;
+		font-size: 26px;
+		margin: 50px 0px 0px 10px;
+	}
+
+.clear {
+	clear: both;
+}
+#map{
+	margin-top:40px;
+	
+}
+#markers_list li{
+	list-style-type: none
+}
+
+#map img { 
+  max-width: none;
+}
+
+#fanatics_list {
+	border: 1px solid silver;
+	border-radius:15px;
+	padding-top: 15px;
+	padding-right: 5px;
+	padding-left: 10px;
+	padding-bottom: 120px;
+}
+
+#locate_events {
+	border: 1px solid silver;
+	border-radius:15px;
+	padding-top: 15px;
+	padding-right: 5px;
+	padding-left: 10px;
+	padding-bottom: 120px;
+}
+
+#signuptoview {
+	padding:60px;
+	margin-left:160px;
+}
+
+
+    /* CUSTOMIZE THE CAROUSEL
+    -------------------------------------------------- */
+
+    /* Carousel base class */
+    .carousel {
+      margin-bottom: 60px;
+    }
+
+    .carousel .container {
+      position: relative;
+      z-index: 9;
+    }
+
+    .carousel-control {
+      height: 80px;
+      margin-top: 0;
+      font-size: 120px;
+      text-shadow: 0 1px 1px rgba(0,0,0,.4);
+      background-color: transparent;
+      border: 0;
+      z-index: 10;
+    }
+
+    .carousel .item {
+      height: 500px;
+    }
+    .carousel img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      height: 500px;
+    }
+
+    .custom_caption {
+    	height:300px;
+    	width:100%;
+    	text-align: center;
+    }
+
+    .carousel-caption {
+      height:100px;
+      text-align: center;
+      opacity: 1;
+      padding: 0 20px;
+      margin:0 auto;
+      width:100%;
+
+      /*max-width: 500px;*/
+      /*margin-top: 200px;*/
+      /*background-color: transparent;*/
+      /*position: static;*/
+    }
+
+    .carousel-caption h1,
+    .carousel-caption .lead {
+      margin: 0;
+      line-height: 1.25;
+      color: #fff;
+      text-shadow: 0 1px 1px rgba(0,0,0,.4);
+    }
+    .carousel-caption .btn {
+      margin-top: 10px;
+    }
+

@@ -1,0 +1,46 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#myTab a').click(function (e) {
+		  e.preventDefault();
+		  $(this).tab('show');
+		});
+	});
+</script>
+
+<h1 id="main_title">Events Dashboard</h1>
+
+<%= button_to 'Create an event', new_event_path, method: :get, class: 'btn btn-large btn-success' %>
+
+<p class="notice"><%= flash[:notice] %></p>
+<p class="error"><%= flash[:error] %></p>
+
+</br>
+
+<div class="span12">
+	<ul id="myTab" class="nav nav-tabs">
+	  <li class="active"><a href="#invited_to_events" data-toggle="tab"><h4>Events I'm Invited To</h4></a></li>
+	  <li><a href="#joined_events" data-toggle="tab"><h4>Events I've Joined</h4></a></li>
+	  <li><a href="#maybe_events" data-toggle="tab"><h4>Maybe Events</h4></a></li>
+	  <li><a href="#my_events" data-toggle="tab"><h4>Events I Created</h4></a></li>
+	</ul>
+
+	<div id="myTabContent" class="tab-content">
+
+        <div class="tab-pane active in" id="invited_to_events">
+			<%= render 'events/invited' %>
+        </div>
+
+        <div class="tab-pane fade" id="joined_events">
+			<%= render 'events/joined' %>
+        </div>
+
+        <div class="tab-pane fade" id="maybe_events">
+			<%= render 'events/maybe' %>
+        </div>       
+
+        <div class="tab-pane fade" id="my_events">
+			<%= render 'events/created' %>
+        </div>
+    </div>
+</div>
+

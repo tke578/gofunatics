@@ -1,0 +1,170 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+	  $("address").each(function(){                         
+	    var embed ="<iframe width='90%' height='360' frameborder='0' scrolling='no'  marginheight='0' marginwidth='0'   src='https://maps.google.com/maps?&amp;q="+ encodeURIComponent( $(this).text() ) +"&amp;output=embed'></iframe>";
+	        $(this).html(embed);                     
+	   });
+
+	  $('.userinvite').submit(function(){
+	 	$(this).hide();	
+	  });
+
+	});
+</script>
+
+<div class="row">
+	<div class="span8">
+		<h1><%= @event['name'] %></h1>
+	</div>
+	<% if (signed_in? == true) && (current_user.id == @owner.id)%>
+		<div class="span2">
+			<%= button_to 'Edit event', edit_event_path(@event), method: :get, class: 'btn btn-large btn-primary' %>
+		</div>
+		<div class="span2">
+			<%= button_to 'Cancel event', edit_event_path(@event), method: :get, class: 'btn btn-large btn-danger' %>
+		</div>
+	<% end %>
+</div>
+
+<p class="notice"><%= flash[:notice] %></p>
+<p class="error"><%= flash[:error] %></p>
+
+<br>
+
+<div class="row">
+	<div class="span4">
+		<p>
+			<% if @event.start_date < Date.current() %>
+				<font size="3" color="red"><strong>This is a past event</strong></font></br>
+			<% end %>
+			<strong>Created by: </strong><%= @owner.first_name%> <%= @owner.last_name%>
+			<br>
+			<strong>Interest: </strong><%= @interest_name%>
+			<br>
+			<strong>Created on: </strong><%=@event.created_at.strftime('%A, %B %d, %Y at %H:%M %p')%>
+			<br>
+			<strong>Description: </strong><%= @event.description %>
+			</br></br>
+
+			<strong>Start Date: </strong><%= @event.start_date.strftime('%A, %B %d, %Y') %>
+			</br>		
+			<strong>Start Time: </strong><%= @event.start_time.strftime('%H:%M %p') %>
+			</br>	
+			</br>
+			<strong>End Date: </strong><%= @event.end_date.strftime('%A, %B %d, %Y') %>
+			</br>
+			<strong>End Time: </strong><%= @event.end_time.strftime('%H:%M %p') %>
+			</br>
+			</br>
+
+			<strong>Event Location:</strong>
+			</br>
+			<%= @event.location %></br>
+			<%= @event.address %></br>	
+			<%= @event.city %>,  	
+			<%= @event.state %> 
+			<%= @event.zip_code %></br>
+			<%= @event.phone_number %>
+			<br>
+		</p>
+	</div>
+
+	<!-- This the div for the Gmap -->
+	<div class="span8">
+		<strong>Event Location:</strong>
+		<address>
+			<%= @event.address %>
+			<%= @event.city %> 	
+			<%= @event.state %> 
+			<%= @event.zip_code %>
+		</address>
+	</div>
+</div>
+
+<div id="invitation_headings" class="row">
+	<div class="span3">
+		<h4>Invite Funatics</h4>
+	</div>
+	<div class="span2">
+		<h4>Going :)</h4>
+	</div>
+	<div class="span2">
+		<h4>Maybe :|</h4>
+	</div>
+	<div class="span2">
+		<h4>Not Going :(</h4>
+	</div>
+	<div class="span2">
+		<h4>No response</h4>
+	</div>
+</div>
+<div id="invitations" class="row">
+	<div class="span3">
+		<% @interested_uninvited_ids.each do |invite| %>			
+			<form action="/invites.js" method="post" class="userinvite" data-remote="true" >
+				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+				<input type='hidden' name="invite[event_id]" value="<%= @event.id %>">
+				<input type='hidden' name="invite[user_id]" value="<%= invite %>">
+				<input type='hidden' name="invite[attendee_status]" value="0">
+				<input type='hidden' name="_method" value="create">
+				<% if @event.start_date >= Date.current() %>
+					<input class="btn btn-small btn-info" type="submit" value="Invite" />
+				<% else %>
+					<input class="btn btn-small btn-info" type="button" value="Invite" />
+				<% end %>
+			  	<%= User.find(invite).first_name %> <%= User.find(invite).last_name %>
+			</form>
+		<% end %>
+	</div>
+	<div class="span2">
+		<% @going_users.each do |user| %>
+			<%= user.first_name %> <%= user.last_name %>
+			<br>
+		<% end %>
+	</div>
+	<div class="span2">
+		<% @maybe_users.each do |user| %>
+			<%= user.first_name %> <%= user.last_name %>
+			<br>
+		<% end %>
+	</div>
+	<div class="span2">
+		<% @notgoing_users.each do |user| %>
+			<%= user.first_name %> <%= user.last_name %>
+			<br>
+		<% end %>
+	</div>
+	<div class="span2" id="invited_users">
+		<% @invited_users.each do |user| %>
+			<%= user.first_name %> <%= user.last_name %>
+			<br>
+		<% end %>
+	</div>
+</div>
+
+<br>
+
+<div class="span12">
+	<h2>Post a message!</h2>
+    <div class="span10 well">
+	<%= simple_form_for([@event, @post], :format => :js, :remote => true) do |p| %>
+	  <%= p.input :content, :as => :text, :input_html => { class: 'input-large', id: 'new_post_input', :rows => 3 } %>
+	  <%= p.button :submit, class: "btn btn-info", value: 'Post!' %>
+	<% end %>
+</div>
+
+<br>
+<br>
+
+<div class="span12" id="post_content">
+	<% @posts.each do |post| %>
+		<% if !post.content.nil? %>
+			<div class="span10">
+				<p class="post_heading">Posted on <%= post.created_at.strftime('%A, %B %d, %Y at %H:%M %p') %> by <strong><%= post.user.first_name %> <%= post.user.last_name %>: </strong></p>
+				<div class="well">
+					<p><%= post.content %></p>
+				</div>
+			</div>
+		<% end %>
+	<% end %>
+</div>

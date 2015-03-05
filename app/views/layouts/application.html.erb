@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Table 3 Project</title>
+	<meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Rails Bootstrap" %>">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+	<%= javascript_include_tag "application" %>
+	<%= csrf_meta_tags %>
+	<%= javascript_tag "var AUTH_TOKEN = '#{form_authenticity_token}';" if protect_against_forgery? %>
+</head>
+<body>
+
+<%= render 'layouts/header' %>
+
+<br>
+
+<div class="container">	
+	<%= yield %>
+	<%= yield :scripts %> 
+</div>
+
+</body>
+</html>

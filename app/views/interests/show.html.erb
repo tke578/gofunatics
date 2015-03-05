@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="span10">
+    <h1><%= @interest.name %> events in your area</h1>
+  </div>
+  <div class="span2">
+    <%= button_to 'Create an event', new_event_path(@interest.id), :method => :get, class: 'btn btn-large btn-success' %>
+  </div>
+</div>
+
+<div id="map" style="width: 100%; height: 400px;"></div>
+<%= gmaps("markers" => {"data" => @json, "options" => {"list_container" => "markers_list" } }) %>
+
+<div class="span2" id="fanatics_list">
+  <h4>Funatics</h4>
+  <% @interest_users.each do |iuser| %>
+    <%= iuser.first_name %> 
+    <%= iuser.last_name %></br>
+  <% end %>
+</div>
+
+<% if signed_in? %>
+  <div class="span7">
+    <!-- <h4>Events</h4> -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Event Name</th>
+          <th>Start Date</th>
+          <th>Starts at</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @interest_events.each do |ievent| %>
+          <tr>
+            <td><%= link_to ievent.name, event_path(ievent) %></td>
+            <td><%= ievent.start_date.strftime('%A %B %d, %Y') %></td>
+            <td><%= ievent.start_time.strftime('%H:%M %p') %></td>
+            <% if @invited_to_events.include?(ievent.id) %>
+              <td>Invited</td> 
+            <% else %> 
+              <td>Not invited</td>
+            <% end %>
+
+            <% if @joined_events.include?(ievent.id) %>
+              <td>Joined</td>
+            <% elsif @invited_to_events.include?(ievent.id) %>
+              <td>Join form My Events</td>
+            <% else %> 
+              <td><%= button_to 'Join', invites_path(:invite =>{:user_id => current_user.id, :event_id => ievent.id, :attendee_status => 3}), method: :post, class: 'btn btn-small btn-success' %> </td>
+            <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %> 
+  <div class="span7">
+    <a id="signuptoview" href="/signup/" class="btn btn-warning btn-large">Sign up to view Events!</a>
+  </div>
+<% end %> 
+
+
+<div class="span2" id="locate_events" >
+  <h4>Locate on the map</h4>
+  <p id="markers_list"> </p>
+</div>
+
+
+

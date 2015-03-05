@@ -1,0 +1,23 @@
+$navbarBackgroundHighlight: white;
+$navbarBackground: white;
+#map img {
+	max-width: none;
+}
+#map label {
+	width: auto;
+	display: inline;
+}
+@import 'bootstrap';
+@import 'bootstrap-responsive';
+
+body { 
+	padding-top: 40px;
+}
+
+.notice {
+	color:green;
+}
+
+.error {
+	color:red;
+}

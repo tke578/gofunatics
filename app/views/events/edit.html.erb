@@ -1,0 +1,22 @@
+<h1>Update Event</h1>
+
+<p class="notice"><%= flash[:notice] %></p>
+<p class="error"><%= flash[:error] %></p>
+
+<%= simple_form_for(@event) do |f| %>
+  <%= f.input :interest_id, :collection => Interest.all.order('name ASC'), :selected => @default_int_id, :label_method => :name, :value_method => :id, label: "Interest Category", :required => true %>
+  <%= f.input :name, label: "Event Name" %>
+  <%= f.input :location, label: "Event Location" %>
+  <%= f.input :address, label: "Event Address" %>
+  <%= f.input :city %>
+  <%= f.input :state %>
+  <%= f.input :zip_code, :as => :string %>
+  <%= f.input :phone_number, :as => :tel %>
+  <%= f.input :start_date, :as => :date, :start_year => Date.today.year, :end_year => 1900, :order => [ :month, :day, :year], :required => true %>
+  <%= f.input :end_date, :as => :date, :start_year => Date.today.year, :end_year => 1900, :order => [ :month, :day, :year], :required => true  %>
+  <%= f.input :start_time, :as => :time, :ampm => true, :minute_step => 5, :start_hour => 0, :end_hour => 23, :selected => 8 %>
+  <%= f.input :end_time, :as => :time, :ampm => true, :minute_step => 5, :start_hour => 0, :end_hour => 23, :selected => 8  %>
+  <%= f.input :invite_all, :as => :boolean, :value => false, label: "Check to invite all Funatics" %>
+  <%= f.input :description, :as => :text, label: "Event Description (required): ", :input_html => { class: 'input-large', :rows => 6, :cols => 10 }, :required => true %>
+  <%= f.button :submit, :class => 'btn btn-large btn-success' %>
+<% end %>

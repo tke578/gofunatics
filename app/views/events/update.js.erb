@@ -1,0 +1,8 @@
+$("#invited_to_events").empty()
+$("#invited_to_events").html("<%= escape_javascript(render('events/invited')) %>")
+$("#joined_events").empty()
+$("#joined_events").html("<%= escape_javascript(render('events/joined')) %>")
+$("#maybe_events").empty()
+$("#maybe_events").html("<%= escape_javascript(render('events/maybe')) %>")
+$("#my_events").empty()
+$("#my_events").html("<%= escape_javascript(render('events/created')) %>")

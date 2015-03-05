@@ -1,0 +1,12 @@
+<h1>Sign In</h1>
+
+<p class="notice"><%= flash[:notice] %></p>
+<p class="error"><%= flash[:error] %></p>
+
+<%= simple_form_for(:session, :url => sessions_path) do |f| %>
+  <%= f.input :email_address %>
+  <%= f.input :password %>
+  <%= f.button :submit, value: 'Sign In' , :class => 'btn btn-large btn-primary' %>
+<% end %>
+
+<%= link_to 'Create Account', new_user_path %>

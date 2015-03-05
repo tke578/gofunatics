@@ -1,0 +1,19 @@
+<h1>New user</h1>
+
+<p class="error"><%= @user.errors.full_messages.first if @user.errors.any? %></p>
+<p class="notice"><%= flash[:notice] %></p>
+
+<%= simple_form_for(@user) do |f| %>
+  <%= f.input :first_name %>
+  <%= f.input :last_name %>
+  <%= f.input :email_address %>
+  <%= f.input :password %>
+  <%= f.input :password_confirmation %>
+  <%= f.input :address %>
+  <%= f.input :city %>
+  <%= f.input :state %>
+  <%= f.input :zip_code %>
+  <%= f.button :submit, :class => 'btn btn-large btn-success' %>
+<% end %>
+
+<%= link_to 'Login', new_session_path %>

@@ -1,0 +1,132 @@
+<!--  
+<%= javascript_include_tag "users_show" %>
+
+<div id="results"></div>
+
+<div class="row">
+	<div class="span4">
+		<h1>My Interests</h1>
+	</div>
+	<div class="span5">
+		<%= form_tag user_path, id: 'myForm', :method => 'get' do %>
+		<%= text_field_tag :search, params[:search], id: 'interest_search' %>
+		<label id="search_label" for="interest_search">Search Interests</label>
+		<% end %>
+	</div>
+	<div class="span2">
+		<%= button_to 'Create an interest', new_interest_path(), method: :get, class: 'btn btn-large btn-success' %>
+	</div>
+</div>
+
+<p class="notice"><%= flash[:notice] %></p>
+<p class="error"><%= flash[:error] %></p>
+
+<h2>Current Events within 1000 mile radius</h2>	
+<% for events in Event.near([@user.latitude, @user.longitude], 1000) %>
+
+
+
+<div class="dropdown">
+  <button class="btn dropdown-toggle sr-only" type="button" id="dropdownMenu1" data-toggle="dropdown">
+    Search Events
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <li><%= link_to events.name,event_path(events) %></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">5 miles</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">10 miles</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">20 miles</a></li>
+  </ul>
+</div>
+<% end %>
+
+<div id="header">
+	<div id="top_append">
+		<% @favorites.each do |interest| %>
+			<div id="<%= interest.id %>" class="interest">
+				<div id="<%= interest.name %>" class="search_donthide">
+					<%= link_to(image_tag("#{interest.id}.jpg", class: 'circle'), interest_path(interest.id)) %>
+					<p><%= link_to interest.name, interest_path(interest.id), class: 'interest_title' %>
+					<%= link_to "favorite", favorites_path( :interest_id => interest.id), method: :post, id: "addlink.#{interest.id}", class: "addlink_hide", remote: true %>
+					<%= link_to "remove", favorite_path( :interest_id => interest.id), method: :delete, id: "remlink.#{interest.id}", class: "remlink_show", remote: true %></p>
+				</div>
+			</div>
+		<% end %>
+	</div>
+	<div id='no_favorite'>
+		<p>Please add at least one Interest by clicking 'favorite' link for any Interest shown below.</p>
+		<p>INTERESTS ARE HOW YOU GET INVITED TO EVENTS!</p>
+	</div>
+</div>
+
+<div id="bottom_append"></div>
+<% @interests.each do |interest| %>
+	<div id="<%= interest.name %>" class="search_hide">
+		<div id="<%= interest.id %>" class="interest">
+			<%= link_to(image_tag("#{interest.id}.jpg", class: 'circle'), interest_path(interest.id)) %>
+			<p><%= link_to interest.name, interest_path(interest.id), class: 'interest_title' %>
+			<%= link_to "favorite", favorites_path( :interest_id => interest.id), method: :post, id: "addlink.#{interest.id}", class: "addlink_show", remote: true %>
+			<%= link_to "remove", favorite_path( :interest_id => interest.id), method: :delete, id: "remlink.#{interest.id}", class: "remlink_hide", remote: true %></p>
+		</div>
+	</div>
+<% end %>
+
+<div id='no_interest'>
+	<p>No interests match the search criteria you have specified.</p>
+</div>
+  -->
+<%= javascript_include_tag "users_show" %>
+
+<div id="results"></div>
+
+<div class="row">
+	<div class="span4">
+		<h1>My Interests</h1>
+	</div>
+	<div class="span5">
+		<%= text_field_tag :search, params[:search], id: 'interest_search' %>
+		<label id="search_label" for="interest_search">Search Interests</label>
+	</div>
+	<div class="span2">
+	</div>
+</div>
+
+<p class="notice"><%= flash[:notice] %></p>
+<p class="error"><%= flash[:error] %></p>
+
+<div id="header">
+	<div id="top_append">
+		<% @favorites.each do |interest| %>
+			<div id="<%= interest.id %>" class="interest">
+				<div id="<%= interest.name %>" class="search_donthide">
+					<%= link_to(image_tag("#{interest.id}.jpg", class: 'circle'), interest_path(interest.id)) %>
+					<p><%= link_to interest.name, interest_path(interest.id), class: 'interest_title' %>
+					<%= link_to "favorite", favorites_path( :interest_id => interest.id), method: :post, id: "addlink.#{interest.id}", class: "addlink_hide", remote: true %>
+					<%= link_to "remove", favorite_path( :interest_id => interest.id), method: :delete, id: "remlink.#{interest.id}", class: "remlink_show", remote: true %></p>
+				</div>
+			</div>
+		<% end %>
+	</div>
+	<div id='no_favorite'>
+		<p>Please add at least one Interest by clicking 'favorite' link for any Interest shown below.</p>
+		<p>INTERESTS ARE HOW YOU GET INVITED TO EVENTS!</p>
+	</div>
+</div>
+
+<div id="bottom_append"></div>
+<% @interests.each do |interest| %>
+	<div id="<%= interest.name %>" class="search_hide">
+		<div id="<%= interest.id %>" class="interest">
+			<%= link_to(image_tag("#{interest.id}.jpg", class: 'circle'), interest_path(interest.id)) %>
+			<p><%= link_to interest.name, interest_path(interest.id), class: 'interest_title' %>
+			<%= link_to "favorite", favorites_path( :interest_id => interest.id), method: :post, id: "addlink.#{interest.id}", class: "addlink_show", remote: true %>
+			<%= link_to "remove", favorite_path( :interest_id => interest.id), method: :delete, id: "remlink.#{interest.id}", class: "remlink_hide", remote: true %></p>
+		</div>
+	</div>
+<% end %>
+
+<div id='no_interest'>
+	<p>No interests match the search criteria you have specified.</p><br />
+	<%= button_to 'Create an interest', new_interest_path(), method: :get, class: 'btn btn-large btn-success' %>
+</div>
+
